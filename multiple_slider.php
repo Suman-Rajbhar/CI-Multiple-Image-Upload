@@ -2,7 +2,7 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                <h1>New Blog</h1>
+                <h1>Create Slider</h1>
             </div>
         </div>
     </div>
@@ -10,15 +10,7 @@
 <div class="section">
     <div class="container">
         <div class="row">
-            <div class="col-md-2"></div>
-            <div class="col-md-6">
-                <?php $err = $this->session->flashdata("error"); ?>
-                <?php $success = $this->session->flashdata("success"); ?>
-                <?php if($err){ ?><label class="alert alert-danger"><?php echo $err; ?></label><?php } ?>
-                <?php if($success){ ?><label class="alert alert-success"><?php echo $success; ?></label><?php } ?>
-                <?php $val_err = validation_errors(); ?>
-                <?php if($val_err){ ?><label class="alert alert-danger"><?php echo $val_err; ?></label><?php } ?>
-            </div>
+            <div class="col-md-2"></div>            
             <!-- Blog Post Excerpt -->
             <div class="col-sm-12">
 
