@@ -19,11 +19,13 @@ class Admin_dashboard extends CI_Controller{
     {
         $this->load->library('upload'); // library init
         // next we pass the upload path for the images
-        $config['upload_path'] = './admin_views/temp_pic/';
+        $config['upload_path'] = './temp_pic/';
         // also, we make sure we allow only certain type of images
         $config['allowed_types'] = 'gif|jpg|png';
         
-        $count_files = array_filter($_FILES['slide_img']['size']); // count all file input in total 
+        $count_files = array_filter($_FILES['slide_img']['size']); // count all file input in total
+        
+        $files = $_FILES['slide_img'];
         
         // first make sure that there is no error in uploading the files
         for($i=0;$i<$count_files;$i++)
@@ -44,15 +46,17 @@ class Admin_dashboard extends CI_Controller{
            
            $this->upload->initialize($config); // initial config
 
-           if ($this->upload->do_upload('pic'))
+           if ($this->upload->do_upload('slide_img'))
             {
-                $datax = array('uploads' => $this->upload->data());
-                $image_data_source = "admin_views/pro_pictures/" . $datax['uploads']['raw_name'] . '_thumb' . $datax['uploads']['file_ext'];    
+                $up_image = array('uploads' => $this->upload->data());
+                
+                $image_data_source = "slider_pictures/" . $up_image['uploads']['raw_name'] . '_thumb' . $up_image['uploads']['file_ext'];                    
                 $data['pro_pic'] = $image_data_source;                
                 $this->dev_m->save_product_pic($data);
+                
                 $config['image_library'] = 'gd2';
-                $config['source_image'] = "admin_views/temp_pic/" . $datax['uploads']['file_name'];
-                $config['new_image'] = './admin_views/pro_pictures/';
+                $config['source_image'] = "./temp_pic/" . $up_image['uploads']['file_name'];
+                $config['new_image'] = './slider_pictures/';
                 $config['create_thumb'] = TRUE;
                 $config['maintain_ratio'] = FALSE;
                 $config['width'] = 800;
